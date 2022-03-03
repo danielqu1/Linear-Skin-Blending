@@ -16,6 +16,7 @@ interface IMengerSponge {
 export class MengerSponge implements IMengerSponge {
 
   // TODO: sponge data structures
+  level: number;
   
   constructor(level: number) {
 	  this.setLevel(level);
@@ -35,12 +36,20 @@ export class MengerSponge implements IMengerSponge {
   public setLevel(level: number)
   {
 	  // TODO: initialize the cube
+    this.level = level;
   }
 
   /* Returns a flat Float32Array of the sponge's vertex positions */
   public positionsFlat(): Float32Array {
 	  // TODO: right now this makes a single triangle. Make the cube fractal instead.
-	  return new Float32Array([1.0, 0.0, 0.0, 1.0, -1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0]);
+	  // return new Float32Array([1.0, 0.0, 0.0, 1.0, -1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0]);
+    return new Float32Array([
+      0.5, -0.5, 0.5, 1.0,
+      -0.5, -0.5, 0.5, 1.0,
+      0.5, 0.5, 0.5, 1.0,
+      -0.5, 0.5, 0.5, 1.0,
+      0.5, 0.5, 0.5, 1.0,
+      -0.5, -0.5, 0.5, 1.0]);
   }
 
   /**
@@ -48,7 +57,7 @@ export class MengerSponge implements IMengerSponge {
    */
   public indicesFlat(): Uint32Array {
     // TODO: right now this makes a single triangle. Make the cube fractal instead.
-    return new Uint32Array([0, 1, 2]);
+    return new Uint32Array([0, 1, 2, 3, 4, 5]);
   }
 
   /**
@@ -56,7 +65,13 @@ export class MengerSponge implements IMengerSponge {
    */
   public normalsFlat(): Float32Array {
 	  // TODO: right now this makes a single triangle. Make the cube fractal instead.
-	  return new Float32Array([0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0]);
+	  return new Float32Array([
+      0.0, 0.0, 1.0, 0.0,
+      0.0, 0.0, 1.0, 0.0,
+      0.0, 0.0, 1.0, 0.0,
+      0.0, 0.0, 1.0, 0.0,
+      0.0, 0.0, 1.0, 0.0,
+      0.0, 0.0, 1.0, 0.0]);
   }
 
   /**
