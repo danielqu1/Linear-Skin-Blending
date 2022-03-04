@@ -128,9 +128,14 @@ export class GUI implements IGUI {
   public drag(mouse: MouseEvent): void {
 	  
 	  // TODO: Your code here for left and right mouse drag
-	  // console.log(mouse);
+	  // console.log(mouse.buttons);
     if (this.dragging){
-      this.camera.rotate(new Vec3([mouse.movementX, mouse.movementY, 0]), GUI.rotationSpeed* 0.0001, new Vec3([this.prevX, this.prevY, 0]));
+      if (mouse.buttons == 1){
+        this.camera.rotate(new Vec3([mouse.movementY, -mouse.movementX, 0]), GUI.rotationSpeed*0.1/*, new Vec3([this.prevX, this.prevY, 0])*/);
+      }
+      if (mouse.buttons == 2){
+        this.camera.rotate(new Vec3([mouse.movementY, mouse.movementY, 0]), GUI.zoomSpeed*0.003, new Vec3([this.prevX, this.prevY, 0]));
+      }
     }
   }
 
