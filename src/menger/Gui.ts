@@ -131,11 +131,12 @@ export class GUI implements IGUI {
 	  // console.log(mouse.buttons);
     if (this.dragging){
       if (mouse.buttons == 1){
-        this.camera.rotate(new Vec3([mouse.movementY, -mouse.movementX, 0]), GUI.rotationSpeed*0.1/*, new Vec3([this.prevX, this.prevY, 0])*/);
+        this.camera.orbitTarget(new Vec3([mouse.movementY, -mouse.movementX, 0]), GUI.rotationSpeed);
       }
-      if (mouse.buttons == 2){
-        this.camera.rotate(new Vec3([mouse.movementY, mouse.movementY, 0]), GUI.zoomSpeed*0.003, new Vec3([this.prevX, this.prevY, 0]));
-      }
+      //zooming but doesnt work rn
+      /*if (mouse.buttons == 2){
+        this.camera.rotate(new Vec3([mouse.movementX, mouse.movementY, 0]), GUI.zoomSpeed*0.003, new Vec3([this.prevX, this.prevY, 0]));
+      } */
     }
   }
 
