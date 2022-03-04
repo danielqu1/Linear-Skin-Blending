@@ -134,9 +134,13 @@ export class GUI implements IGUI {
         this.camera.orbitTarget(new Vec3([mouse.movementY, -mouse.movementX, 0]), GUI.rotationSpeed);
       }
       //zooming but doesnt work rn
-      /*if (mouse.buttons == 2){
-        this.camera.rotate(new Vec3([mouse.movementX, mouse.movementY, 0]), GUI.zoomSpeed*0.003, new Vec3([this.prevX, this.prevY, 0]));
-      } */
+      if (mouse.buttons == 2){
+        if (mouse.movementY < 0){
+          this.camera.offsetDist(GUI.zoomSpeed * -1);
+        } else {
+          this.camera.offsetDist(GUI.zoomSpeed);
+        }
+      } 
     }
   }
 
