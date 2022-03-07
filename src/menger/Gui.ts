@@ -65,7 +65,7 @@ export class GUI implements IGUI {
    * Resets the state of the GUI
    */
   public reset(): void {
-    this.fps = false;
+    this.fps = true;
     this.dragging = false;
     /* Create camera setup */
     this.camera = new Camera(
@@ -132,9 +132,11 @@ export class GUI implements IGUI {
     // TODO: THIS IS DEF WRONG
     if (this.dragging){
       if (mouse.buttons == 1){
-        this.camera.orbitTarget(this.camera.up().scale(this.prevX - mouse.screenX).add(this.camera.right().scale(this.prevY - mouse.screenY )), GUI.rotationSpeed);
-        // this.camera.orbitTarget(new Vec3([mouse.screenX - this.prevX, mouse.screenY - this.prevY, 0]), GUI.rotationSpeed);
-        
+        if (this.fps){
+          this.camera.rotate(this.camera.up().scale(this.prevX - mouse.screenX).add(this.camera.right().scale(this.prevY - mouse.screenY )), GUI.rotationSpeed);
+        } else {
+          this.camera.orbitTarget(this.camera.up().scale(this.prevX - mouse.screenX).add(this.camera.right().scale(this.prevY - mouse.screenY )), GUI.rotationSpeed);
+        }
       }
       //zooming
       if (mouse.buttons == 2){
@@ -186,7 +188,7 @@ export class GUI implements IGUI {
         break;
       }
       case "KeyA": {
-        this.camera.yaw(GUI.panSpeed, true);
+        this.camera.yaw(GUI.panSpeed);
         break;
       }
       case "KeyS": {
@@ -194,7 +196,7 @@ export class GUI implements IGUI {
         break;
       }
       case "KeyD": {
-        this.camera.yaw(GUI.panSpeed);
+        this.camera.yaw(GUI.panSpeed, true);
         break;
       }
       case "KeyR": {
@@ -210,11 +212,11 @@ export class GUI implements IGUI {
         break;
       }
       case "ArrowUp": {
-        this.camera.pitch(GUI.panSpeed, true);
+        this.camera.pitch(GUI.panSpeed);
         break;
       }
       case "ArrowDown": {
-        this.camera.pitch(GUI.panSpeed);
+        this.camera.pitch(GUI.panSpeed, true);
         break;
       }
       case "Digit1": {

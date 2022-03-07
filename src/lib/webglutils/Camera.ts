@@ -284,8 +284,14 @@ export class Camera {
     radians = Math.abs(radians);
     if (right === true) {
       radians = -radians;
+    //   this._forward = this._forward.add(this._right.scale(radians));
+    //   this._eye = this._eye.add(this._right.scale(radians));
+    // } else {
+    //   this._forward = this._forward.subtract(this._right.scale(radians));
+    //   this._eye = this._eye.subtract(this._right.scale(radians));
     }
     this.rotate(this.up(), radians);
+
   }
 
   // Camera::orbitTarget - rotates about the given axis at the target object
