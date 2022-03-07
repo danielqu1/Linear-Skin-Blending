@@ -132,7 +132,9 @@ export class GUI implements IGUI {
     // TODO: THIS IS DEF WRONG
     if (this.dragging){
       if (mouse.buttons == 1){
-        this.camera.orbitTarget(new Vec3([mouse.screenX - this.prevX, mouse.screenY - this.prevY, 0]), GUI.rotationSpeed);
+        this.camera.orbitTarget(this.camera.up().scale(this.prevX - mouse.screenX).add(this.camera.right().scale(this.prevY - mouse.screenY )), GUI.rotationSpeed);
+        // this.camera.orbitTarget(new Vec3([mouse.screenX - this.prevX, mouse.screenY - this.prevY, 0]), GUI.rotationSpeed);
+        
       }
       //zooming
       if (mouse.buttons == 2){
