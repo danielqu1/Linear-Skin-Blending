@@ -129,13 +129,14 @@ export class GUI implements IGUI {
 	  
 	  // TODO: Your code here for left and right mouse drag
 	  // console.log(mouse.buttons);
+    // TODO: THIS IS DEF WRONG
     if (this.dragging){
       if (mouse.buttons == 1){
-        this.camera.orbitTarget(new Vec3([mouse.movementY, -mouse.movementX, 0]), GUI.rotationSpeed);
+        this.camera.orbitTarget(new Vec3([mouse.screenX - this.prevX, mouse.screenY - this.prevY, 0]), GUI.rotationSpeed);
       }
-      //zooming but doesnt work rn
+      //zooming
       if (mouse.buttons == 2){
-        if (mouse.movementY < 0){
+        if (mouse.screenY - this.prevY < 0){
           this.camera.offsetDist(GUI.zoomSpeed * -1);
         } else {
           this.camera.offsetDist(GUI.zoomSpeed);
@@ -170,56 +171,64 @@ export class GUI implements IGUI {
 	// TOOD: Your code for key handling
 
     switch (key.code) {
+      case "KeyC": {
+        this.fps = !this.fps;
+        break;
+      }
       case "KeyW": {
-
+        if (this.fps){
+          this.camera.offsetDist(GUI.zoomSpeed * -1);
+        } else {
+          this.camera.offsetDist(GUI.zoomSpeed * -1);
+        }
         break;
       }
       case "KeyA": {
-
+        this.camera.yaw(GUI.panSpeed, true);
         break;
       }
       case "KeyS": {
-
+        this.camera.offsetDist(GUI.zoomSpeed);
         break;
       }
       case "KeyD": {
-
+        this.camera.yaw(GUI.panSpeed);
         break;
       }
       case "KeyR": {
-
+        this.reset()
         break;
       }
       case "ArrowLeft": {
-
+        this.camera.roll(GUI.rollSpeed);
         break;
       }
       case "ArrowRight": {
-
+        this.camera.roll(GUI.rollSpeed, true);
         break;
       }
       case "ArrowUp": {
-
+        this.camera.pitch(GUI.panSpeed, true);
         break;
       }
       case "ArrowDown": {
-
+        this.camera.pitch(GUI.panSpeed);
         break;
       }
       case "Digit1": {
-
+        this.sponge.setLevel(1);
         break;
       }
       case "Digit2": {
-
+        this.sponge.setLevel(2);
         break;
       }
       case "Digit3": {
-
+        this.sponge.setLevel(3);
         break;
       }
       case "Digit4": {
-
+        this.sponge.setLevel(4);
         break;
       }
       default: {

@@ -27,7 +27,7 @@ export class MengerSponge implements IMengerSponge {
    * Returns true if the sponge has changed.
    */
   public isDirty(): boolean {
-       return true;
+       return false;
   }
 
   public setClean(): void {
