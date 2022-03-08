@@ -65,7 +65,7 @@ export class GUI implements IGUI {
    * Resets the state of the GUI
    */
   public reset(): void {
-    this.fps = true;
+    this.fps = false;
     this.dragging = false;
     /* Create camera setup */
     this.camera = new Camera(
