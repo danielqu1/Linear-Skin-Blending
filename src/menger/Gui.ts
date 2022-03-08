@@ -130,17 +130,30 @@ export class GUI implements IGUI {
 	  // TODO: Your code here for left and right mouse drag
 	  // console.log(mouse.buttons);
     // TODO: THIS IS DEF WRONG
+
+    let deltaX = mouse.screenX - this.prevX;
+    let deltaY = mouse.screenY - this.prevY;
+    this.prevX = mouse.screenX;
+    this.prevY = mouse.screenY;
+
     if (this.dragging){
       if (mouse.buttons == 1){
+        let mouse_direction = this.camera.right().scale(-deltaX);
+        mouse_direction.add(this.camera.up().scale(deltaY));
+        mouse_direction.normalize();
+
+        let axis = Vec3.cross(this.camera.forward(), mouse_direction);
+        axis.normalize();
+
         if (this.fps){
           this.camera.rotate(this.camera.up().scale(this.prevX - mouse.screenX).add(this.camera.right().scale(this.prevY - mouse.screenY )), GUI.rotationSpeed);
         } else {
-          this.camera.orbitTarget(this.camera.up().scale(this.prevX - mouse.screenX).add(this.camera.right().scale(this.prevY - mouse.screenY )), GUI.rotationSpeed);
+          this.camera.orbitTarget(axis, GUI.rotationSpeed);
         }
       }
       //zooming
       if (mouse.buttons == 2){
-        if (mouse.screenY - this.prevY < 0){
+        if (deltaY < 0){
           this.camera.offsetDist(GUI.zoomSpeed * -1);
         } else {
           this.camera.offsetDist(GUI.zoomSpeed);
