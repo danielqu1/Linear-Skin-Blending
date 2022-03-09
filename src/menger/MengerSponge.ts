@@ -43,12 +43,17 @@ export class MengerSponge implements IMengerSponge {
   {
 	  // TODO: initialize the cube
     this.level = level;
-    
+    var p = 36 * Math.pow(20, 3);
+
     // vector * each face * number of faces * num of cubes
-    this.positions = new Float32Array(4*6*6 * Math.pow(20, (level - 1)));
+    this.positions = new Float32Array(4*p);
+    
     // 2 triangles/face * num of faces
-    this.indicies = new Uint32Array(6 * 6 * Math.pow(20, (level - 1)));
-    this.normals = new Float32Array(4*6*6* Math.pow(20, (level - 1)));
+    this.indicies = new Uint32Array(p);
+
+    //this.indicies = new Uint32Array(6 * 6 *  Math.pow(20, (level - 1)));
+    this.normals = new Float32Array(4*p);
+    
     this.index = 0;
     this.start = 0;
     this.buildSponge();
@@ -63,25 +68,24 @@ export class MengerSponge implements IMengerSponge {
     var size = maxx - minx;
     if (this.level == 1){
       this.buildCube(minx, miny, minz, maxx, miny + size, minz + size);
+      this.buildCube(minx, miny, minz + 1, maxx, miny + size, minz + size + 1);
     } else {
       this.recurse(minx, miny, minz, size/3, this.level);
-
+      
     }
-    console.log(this.indicies);
-    console.log(this.positions);
   }
 
   public recurse(minx, miny, minz, size, curLevel): void {
+    console.log(size);
     for (let i = 0; i < 3; i++){
       for (let j = 0; j < 3; j++){
         for (let k = 0; k < 3; k++){
           //not the middle ones :)
           if (i % 2 + j % 2 + k % 2 < 2){
             if (curLevel > 2){
-              this.recurse(minx + i*size, miny + j*size, minz + k*size, size/3, curLevel - 1)
+              this.recurse(minx + i*size, miny + j*size, minz + k*size, size/3, curLevel - 1);
             } else {
-              this.buildCube(minx + i*size, miny + j*size, minz + k*size, minx + i*size + size, miny + j*size + size, minz + k*size + size)
-              
+              this.buildCube(minx + i*size, miny + j*size, minz + k*size, minx + i*size + size, miny + j*size + size, minz + k*size + size);
             }
           }
         }
@@ -168,7 +172,7 @@ export class MengerSponge implements IMengerSponge {
 
 
     //back face
-    this.positions[this.index] = minx;       this.positions[this.index + 1] = miny;     this.positions[this.index + 2] = minx;     this.positions[this.index + 3] = 1.0;
+    this.positions[this.index] = minx;       this.positions[this.index + 1] = miny;     this.positions[this.index + 2] = minz;     this.positions[this.index + 3] = 1.0;
     this.positions[this.index + 4] = maxx;   this.positions[this.index + 5] = maxy;     this.positions[this.index + 6] = minz;     this.positions[this.index + 7] = 1.0;
     this.positions[this.index + 8] = maxx;   this.positions[this.index + 9] = miny;     this.positions[this.index + 10] = minz;     this.positions[this.index + 11] = 1.0;
     this.positions[this.index + 12] = minx;   this.positions[this.index + 13] = miny;     this.positions[this.index + 14] = minz;     this.positions[this.index + 15] = 1.0;

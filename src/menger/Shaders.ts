@@ -35,8 +35,9 @@ export let defaultFSText = `
 	
     
     void main () {
-
-        gl_FragColor = max(min(dot(normalize(normal), normalize(lightDir)), 1.0), 0.0) * normalize(abs(normal));
+        // *** this makes the whole thing green btw, something on discord about how they inverted all the green normals and it worked ***
+        //gl_FragColor = max(min(dot(normalize(normal), normalize(lightDir)), 1.0), 0.0) * normalize(abs(normal));
+        gl_FragColor = normalize(abs(normal));
         gl_FragColor[3] = 1.0; 
         
 

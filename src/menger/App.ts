@@ -26,7 +26,7 @@ export class MengerAnimation extends CanvasAnimation {
   private gui: GUI;
   
   /* The Menger sponge */
-  private sponge: MengerSponge = new MengerSponge(1);
+  private sponge: MengerSponge = new MengerSponge(2);
 
   /* Menger Sponge Rendering Info */
   private mengerVAO: WebGLVertexArrayObjectOES = -1;
@@ -107,7 +107,7 @@ export class MengerAnimation extends CanvasAnimation {
    */
   public initMenger(): void {
     
-    this.sponge.setLevel(1);
+    this.sponge.setLevel(4);
     
     /* Alias context for syntactic convenience */
     const gl: WebGLRenderingContext = this.ctx;
