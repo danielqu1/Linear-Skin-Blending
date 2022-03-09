@@ -56,7 +56,7 @@ export class GUI implements IGUI {
     this.sponge = sponge;
     this.animation = animation;
 
-	this.reset();
+  	this.reset();
 
     this.registerEventListeners(canvas);
   }
@@ -66,7 +66,7 @@ export class GUI implements IGUI {
    */
   public reset(): void {
     // this.sponge.setLevel(2);
-    this.fps = false;
+    this.fps = true;
     this.dragging = false;
     /* Create camera setup */
     this.camera = new Camera(
@@ -147,7 +147,7 @@ export class GUI implements IGUI {
         axis.normalize();
 
         if (this.fps){
-          this.camera.rotate(this.camera.up().scale(this.prevX - mouse.screenX).add(this.camera.right().scale(this.prevY - mouse.screenY )), GUI.rotationSpeed);
+          this.camera.rotate(axis, GUI.rotationSpeed);
         } else {
           this.camera.orbitTarget(axis, GUI.rotationSpeed);
         }
@@ -195,22 +195,35 @@ export class GUI implements IGUI {
       }
       case "KeyW": {
         if (this.fps){
-          this.camera.offsetDist(GUI.zoomSpeed * -1);
+          this.camera.offset(this.camera.forward().negate(), GUI.zoomSpeed, true);
         } else {
           this.camera.offsetDist(GUI.zoomSpeed * -1);
         }
         break;
       }
       case "KeyA": {
-        this.camera.yaw(GUI.panSpeed);
+        if (this.fps){
+          this.camera.offset(this.camera.right().negate(), GUI.panSpeed, true);
+        } else {
+          this.camera.yaw(GUI.panSpeed);
+        }
+        
         break;
       }
       case "KeyS": {
-        this.camera.offsetDist(GUI.zoomSpeed);
+        if (this.fps){
+          this.camera.offset(this.camera.forward(), GUI.zoomSpeed, true);
+        } else {
+          this.camera.offsetDist(GUI.zoomSpeed);
+        }
         break;
       }
       case "KeyD": {
-        this.camera.yaw(GUI.panSpeed, true);
+        if (this.fps){
+          this.camera.offset(this.camera.right(), GUI.panSpeed, true);
+        } else {
+          this.camera.yaw(GUI.panSpeed, true);
+        }
         break;
       }
       case "KeyR": {
@@ -226,35 +239,29 @@ export class GUI implements IGUI {
         break;
       }
       case "ArrowUp": {
-        this.camera.pitch(GUI.panSpeed);
+        this.camera.offset(this.camera.up(), GUI.zoomSpeed, true);
+        // this.camera.pitch(GUI.panSpeed);
         break;
       }
       case "ArrowDown": {
-        this.camera.pitch(GUI.panSpeed, true);
+        this.camera.offset(this.camera.up().negate(), GUI.zoomSpeed, true);
+        // this.camera.pitch(GUI.panSpeed, true);
         break;
       }
       case "Digit1": {
-        // this.sponge = new MengerSponge(1);
         this.sponge.setLevel(1);
-        // console.log(this.sponge.indicies);
         break;
       }
       case "Digit2": {
-        // this.sponge = new MengerSponge(2);
         this.sponge.setLevel(2);
-        // console.log(this.sponge.indicies);
         break;
       }
       case "Digit3": {
-        // this.sponge = new MengerSponge(3);
         this.sponge.setLevel(3);
-        // console.log(this.sponge.indicies);
         break;
       }
       case "Digit4": {
-        // this.sponge = new MengerSponge(4);
         this.sponge.setLevel(4);
-        // console.log(this.sponge.indicies);
         break;
       }
       default: {

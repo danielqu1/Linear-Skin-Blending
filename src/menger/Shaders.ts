@@ -44,11 +44,8 @@ export let defaultFSText = `
             newNormal.z = - normal.z;
         }
 
-        gl_FragColor = max(min(dot(normalize(newNormal), normalize(lightDir)), 1.0), 0.0) * normalize(abs(newNormal));
-        // gl_FragColor = normalize(abs(newNormal));
+        gl_FragColor = dot(normalize(newNormal), normalize(lightDir)) * normalize(abs(normal));
         gl_FragColor[3] = 1.0; 
-        
-
     }
 `;
 
