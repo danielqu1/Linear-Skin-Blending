@@ -234,23 +234,27 @@ export class GUI implements IGUI {
         break;
       }
       case "Digit1": {
-        this.sponge = new MengerSponge(1);
-        console.log(this.sponge.indicies);
+        // this.sponge = new MengerSponge(1);
+        this.sponge.setLevel(1);
+        // console.log(this.sponge.indicies);
         break;
       }
       case "Digit2": {
-        this.sponge = new MengerSponge(2);
-        console.log(this.sponge.indicies);
+        // this.sponge = new MengerSponge(2);
+        this.sponge.setLevel(2);
+        // console.log(this.sponge.indicies);
         break;
       }
       case "Digit3": {
-        this.sponge = new MengerSponge(3);
-        console.log(this.sponge.indicies);
+        // this.sponge = new MengerSponge(3);
+        this.sponge.setLevel(3);
+        // console.log(this.sponge.indicies);
         break;
       }
       case "Digit4": {
-        this.sponge = new MengerSponge(4);
-        console.log(this.sponge.indicies);
+        // this.sponge = new MengerSponge(4);
+        this.sponge.setLevel(4);
+        // console.log(this.sponge.indicies);
         break;
       }
       default: {

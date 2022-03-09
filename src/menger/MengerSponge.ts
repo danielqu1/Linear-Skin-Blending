@@ -18,9 +18,9 @@ export class MengerSponge implements IMengerSponge {
   // TODO: sponge data structures
   level: number;
   dirty: boolean;
-  normals: Float32Array;
-  indicies: Uint32Array;
-  positions: Float32Array;
+  normals: Float32Array = new Float32Array([]);
+  indicies: Uint32Array = new Uint32Array([]);
+  positions: Float32Array = new Float32Array([]);
   index: number
   start: number
   constructor(level: number) {
@@ -43,7 +43,7 @@ export class MengerSponge implements IMengerSponge {
   {
 	  // TODO: initialize the cube
     this.level = level;
-    var p = 36 * Math.pow(20, 3);
+    var p = 36 * Math.pow(20, this.level - 1);
 
     // vector * each face * number of faces * num of cubes
     this.positions = new Float32Array(4*p);
@@ -57,7 +57,6 @@ export class MengerSponge implements IMengerSponge {
     this.index = 0;
     this.start = 0;
     this.buildSponge();
-
   }
 
   public buildSponge(): void {
@@ -66,12 +65,12 @@ export class MengerSponge implements IMengerSponge {
     var minz = -0.5;
     var maxx = 0.5;
     var size = maxx - minx;
-    if (this.level == 1){
+    this.dirty = true;
+
+    if (this.level === 1){
       this.buildCube(minx, miny, minz, maxx, miny + size, minz + size);
-      this.buildCube(minx, miny, minz + 1, maxx, miny + size, minz + size + 1);
     } else {
       this.recurse(minx, miny, minz, size/3, this.level);
-      
     }
   }
 
